@@ -1,0 +1,1486 @@
+@font-family: 'Montserrat', Arial, sans-serif;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: @font-family;
+}
+
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  background-color: #000;
+  padding: 10px 0;
+
+  &__tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #eee;
+    font-size: 1.2em;
+    font-weight: 600;
+    text-align: center;
+  }
+}
+
+.progress {
+  position: relative;
+  box-sizing: border-box;
+  width: 30%;
+  min-width: 340px;
+  height: 25px;
+  border: 2px solid #fff66b;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
+
+  &__fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Diagonal hazard stripes, tiled every 28px and slid sideways to look like movement
+    background-image: linear-gradient(
+      -45deg,
+      #fcee22 25%,
+      #ecdd00 25%,
+      #ecdd00 50%,
+      #fcee22 50%,
+      #fcee22 75%,
+      #ecdd00 75%,
+      #ecdd00
+    );
+    background-size: 28px 28px;
+    animation: progress-stripes 1s linear infinite;
+  }
+
+  &__label {
+    color: #000;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+@keyframes progress-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 0;
+  }
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+}
+
+.section {
+  width: 100%;
+  max-height:960px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  &--bg-hero,
+  &--bg-countdown {
+    height: 100vh;
+    // Parallax: the background stays fixed to the viewport while the section scrolls over it
+    background-attachment: fixed;
+  }
+
+  &--bg-hero {
+    background-image: url('/images/BG-Hero-.jpg');
+  }
+
+  &--bg-countdown {
+    background-image: url('/images/BG-countdown.png');
+  }
+
+  &--white {
+    background-color: #fff;
+  }
+
+  &--150 {
+    height: 150px;
+  }
+
+  &--center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+
+    // Keep each child at its natural height so the video keeps its 16:9 shape
+    > * {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.hero-date {
+  width: 100%;
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  color: #fff;
+
+  // Pin sits inline with the text, so it moves with the first line when the date wraps
+  &__pin {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+}
+
+// Attend button under the ticket box, icon sits beside the text
+.ticket__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 26px 52px;
+  border: 0;
+  font-family: inherit;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.ticket__cta-icon {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+}
+
+// Three buttons on one row; they stack when the row runs out of space
+.hero-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 16px;
+  width: min(90%, 1000px);
+}
+
+.hero-button {
+  flex: 0 0 auto;
+  padding: 18px 28px;
+  border-radius: 6px;
+  background-color: #1faa4f;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@media (max-width: 1000px) {
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-button {
+    width: min(100%, 360px);
+    white-space: normal;
+  }
+}
+
+// Pull the hero copy up under the date line (section gap + paragraph margin is too much)
+.hero-date + .hero-copy {
+  margin-top: -16px;
+}
+
+// Content starts at the top so the sticky top bar is never pushed out of view
+.section--hero {
+  justify-content: flex-start;
+}
+
+.hero-copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(90%, 1200px);
+  color: #fff;
+  font-size: 3.3em;
+  line-height: 1em;
+  text-align: center;
+
+  p {
+    max-width: 100%;
+    margin: 20px 0;
+    font-family: 'Anton', Impact, sans-serif;
+    font-weight: 400;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  span {
+    color: red;
+  }
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  &__unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 72px;
+    padding: 10px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  &__value {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 2.5em;
+    font-weight: 700;
+    line-height: 1.1;
+    color: #fff;
+
+    &--accent {
+      color: #e51f35;
+    }
+  }
+
+  &__label {
+    margin-top: 4px;
+    font-size: 0.75em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #aaa;
+  }
+}
+
+.hero-video {
+  position: relative;
+  width: min(60%, 800px);
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #000;
+
+  &__media {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Red play button, centered over the video until it is clicked
+  &__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    border: 0;
+    border-radius: 0;
+    background-color: rgba(229, 31, 53, 0.8);
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 42, 64, 0.9);
+    }
+  }
+}
+
+.section--learn {
+  height: auto;
+  max-height: none;
+  padding: 48px 24px 64px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.learn {
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    text-align: left;
+  }
+
+  &__eyebrow {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #000;
+  }
+
+  &__heading {
+    max-width: 1100px;
+    margin: 0;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: #000;
+  }
+
+  // One photo visible at a time; edges fade into the white background
+  &__carousel {
+    width: 380px;
+    max-width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  // Six slides (two copies of three), moved three slides to the left for a seamless loop
+  &__track {
+    display: flex;
+    width: 600%;
+    height: 100%;
+    animation: learn-carousel 45s linear infinite;
+  }
+
+  // 1px padding on each side gives 2px of white space between photos
+  &__slide {
+    flex: 0 0 calc(100% / 6);
+    width: calc(100% / 6);
+    height: 100%;
+    padding: 0 1px;
+    box-sizing: border-box;
+    object-fit: cover;
+  }
+
+  // All five features on one row; top-aligned so icons, titles and copy line up
+  &__items {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 48px auto 0;
+  }
+
+  &__item {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+  }
+
+  &__icon {
+    height: 60px;
+    width: auto;
+    margin-bottom: 12px;
+  }
+
+  // Reserves two lines so one-line and two-line titles push the copy to the same level
+  &__title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.4em;
+    margin: 0 0 8px;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: #c8102e;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+  }
+}
+
+@keyframes learn-carousel {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .learn {
+    &__heading {
+      font-size: 40px;
+    }
+
+    &__top {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      text-align: center;
+    }
+
+    &__items {
+      flex-wrap: wrap;
+    }
+
+    &__item {
+      flex: 0 0 45%;
+    }
+
+    &__header {
+      align-items: center;
+      text-align: center;
+    }
+  }
+}
+
+.section--speakers {
+  height: auto;
+  max-height: none;
+  padding: 48px 24px 64px;
+  background-color: #fff;
+}
+
+.speakers {
+  &__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  // Three per row, two rows
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  // 80% of its column, centered; photo on top, name, then description
+  &__card {
+    justify-self: center;
+    width: 80%;
+    padding: 12px 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 14px 14px -8px rgba(0, 0, 0, 0.6);
+    text-align: center;
+  }
+
+  // Portrait frame, anchored to the top of each photo so heads are not cropped
+  &__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 6;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 4px;
+  }
+
+  &__name {
+    margin: 14px 0 8px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #000;
+  }
+
+  &__bio {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #333;
+  }
+}
+
+@media (max-width: 768px) {
+  .speakers {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__card {
+      width: 100%;
+    }
+  }
+}
+
+// Countdown section grows to fit the ticket box underneath the timer
+.section--bg-countdown {
+  height: auto;
+  max-height: none;
+  padding: 64px 24px;
+}
+
+.ticket {
+  &__card {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 48px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  &__header {
+    margin-bottom: 36px;
+    text-align: center;
+  }
+
+  &__heading {
+    margin: 0 0 12px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.05;
+    color: #000;
+  }
+
+  &__subheading {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: #111;
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  // Workbook behind, lanyard ticket in front
+  &__visual {
+    position: relative;
+    height: 360px;
+  }
+
+  &__workbook {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: auto;
+  }
+
+  &__pass {
+    position: absolute;
+    right: 8%;
+    bottom: 0;
+    width: 40%;
+    height: auto;
+    z-index: 1;
+  }
+
+  &__admission {
+    margin: 0 0 12px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #000;
+  }
+
+  &__retail {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+  }
+
+  &__price {
+    margin: 4px 0 0;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 56px;
+    line-height: 1.1;
+    color: #e51f35;
+  }
+
+  &__price-note {
+    margin: 0 0 24px;
+    font-size: 15px;
+    color: #555;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  &__features {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__feature {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__check {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+
+  &__feature-title {
+    font-size: 16px;
+    color: #000;
+  }
+
+  &__feature-description {
+    margin: 2px 0 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #555;
+  }
+
+  &__guarantee {
+    margin-top: 32px;
+    padding: 20px 24px;
+    border-left: 4px solid #e51f35;
+    background-color: #fdf2f3;
+  }
+
+  &__guarantee-title {
+    margin: 0 0 8px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #e51f35;
+  }
+
+  &__guarantee-text {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #111;
+  }
+
+  &__guarantee-note {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+  }
+}
+
+@media (max-width: 768px) {
+  .ticket {
+    &__card {
+      padding: 24px;
+    }
+
+    &__heading {
+      font-size: 36px;
+    }
+
+    &__body {
+      grid-template-columns: 1fr;
+    }
+  }
+}
+
+// Reserve-seat popup: fades in on open, fades out on close
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.6);
+  animation: modal-fade-in 0.3s ease forwards;
+
+  &--closing {
+    animation: modal-fade-out 0.3s ease forwards;
+  }
+}
+
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  max-height: 100%;
+  overflow-y: auto;
+  background-color: #f4f3f1;
+  font-family: 'Montserrat', Arial, sans-serif;
+  box-sizing: border-box;
+
+  &__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background-color: #000;
+    color: #fff;
+    font-size: 22px;
+    line-height: 32px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  &__header {
+    padding: 36px 24px 24px;
+    border-bottom: 3px solid #e51f35;
+    background-color: #0b0b0b;
+    color: #fff;
+    text-align: center;
+  }
+
+  &__eyebrow {
+    margin: 0 0 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e51f35;
+  }
+
+  &__title {
+    margin: 0 0 12px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 44px;
+    font-weight: 400;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+
+  &__red {
+    color: #e51f35;
+  }
+
+  &__date {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  &__body {
+    padding: 28px 48px 32px;
+  }
+
+  &__intro {
+    margin: 0 0 24px;
+    font-size: 15px;
+    text-align: center;
+    color: #666;
+  }
+
+  &__input,
+  &__field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 52px;
+    margin-bottom: 14px;
+    padding: 0 16px;
+    border: 1px solid #bbb;
+    background-color: #fff;
+    font-size: 16px;
+    color: #111;
+
+    input {
+      flex: 1;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font: inherit;
+      color: inherit;
+    }
+  }
+
+  &__input {
+    outline: 0;
+  }
+
+  &__icon {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  &__country {
+    padding-right: 10px;
+    border-right: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+  }
+
+  &__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 8px 0 24px;
+    font-size: 13px;
+    color: #555;
+  }
+
+  &__submit {
+    width: 100%;
+    height: 64px;
+    border: 0;
+    background-color: #1faa4f;
+    color: #fff;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  &__error {
+    margin: -8px 0 12px;
+    font-size: 13px;
+    color: #e51f35;
+  }
+
+  &__success {
+    margin: 0;
+    padding: 48px 0;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 36px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #1faa4f;
+  }
+
+  &__legal {
+    margin: 20px 0 0;
+    font-size: 12px;
+    text-align: center;
+    color: #666;
+  }
+
+  // Looks like a link but does not navigate
+  &__legal-link {
+    color: #111;
+    text-decoration: underline;
+  }
+}
+
+// Final background section: the hero image mirrored left to right
+.section--flipped {
+  position: relative;
+  height: auto;
+  max-height: none;
+  padding: 64px 24px;
+  isolation: isolate;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -30% 0;
+    z-index: -1;
+    background-image: url('/images/BG-Hero-.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    // 240px lowers the image so the speaker's head is in view; the parallax offset is added on top
+    transform: translate3d(0, calc(var(--parallax-y, 0px) + 240px), 0) scaleX(-1);
+  }
+}
+
+.experience {
+  &__inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  &__heading {
+    margin: 0 0 40px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 1.05;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  &__red {
+    color: #e51f35;
+  }
+
+  &__cta {
+    display: block;
+    width: fit-content;
+    margin: 40px auto 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  &__photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .experience {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__heading {
+      font-size: 40px;
+    }
+  }
+}
+
+// Reviews move right to left by one copy of the list (--reviews-shift is set in App.tsx)
+@keyframes reviews-loop {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(var(--reviews-shift));
+  }
+}
+
+// Trustpilot reviews carousel: right to left, feathered edges
+.section--reviews {
+  height: auto;
+  max-height: none;
+  padding: 64px 24px;
+  background-color: #fff;
+}
+
+.reviews {
+  &__heading {
+    margin: 0 0 32px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.05;
+    text-align: center;
+    color: #000;
+  }
+
+  &__carousel {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 12px;
+    overflow-x: clip;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  // Track is as wide as its cards (plus one gap at the end) so the loop lines up exactly
+  &__track {
+    display: flex;
+    gap: 24px;
+    box-sizing: border-box;
+    padding-right: 24px;
+    animation: reviews-loop 400s linear infinite;
+  }
+
+  &__card {
+    flex: 0 0 406px;
+    padding: 18px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    text-align: left;
+  }
+
+  &__stars {
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #00b67a;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  &__avatar {
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #fde9dc;
+    font-size: 16px;
+    color: #333;
+  }
+
+  &__author {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+  }
+
+  &__date {
+    margin: 2px 0 0;
+    font-size: 13px;
+    color: #666;
+  }
+
+  &__text {
+    margin: 0 0 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  &__reply {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: #666;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews__card {
+    flex-basis: auto;
+    width: min(406px, 85vw);
+  }
+}
+
+// Line above the countdown timer
+.countdown-heading {
+  margin: 0;
+  font-family: 'Anton', Impact, sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+// Red line that fades out at both ends
+.section-divider {
+  width: 80%;
+  height: 4px;
+  margin: 0 auto;
+  border: 0;
+  background: linear-gradient(to right, transparent, #c8102e, transparent);
+}
+
+.footer {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 40px 24px;
+  background-color: #050a0f;
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: center;
+  color: #b8c0c8;
+
+  &__brand {
+    margin: 0 0 16px;
+    font-family: 'Anton', Impact, sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #fff;
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    font-size: 16px;
+  }
+
+  &__link {
+    color: #fff;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__divider {
+    color: #d9a441;
+  }
+
+  &__disclaimer {
+    max-width: 1000px;
+    margin: 0 auto 24px;
+  }
+
+  &__text {
+    margin: 0 0 12px;
+  }
+
+  &__phone {
+    text-decoration: underline;
+  }
+}
+
+// Below 1200px the hero photo is shifted so the speaker stays in frame instead of being cropped
+@media (max-width: 1200px) {
+  .section--bg-hero {
+    background-position: 20% center;
+  }
+}
+
+// Hero title is half size below 1000px
+@media (max-width: 1000px) {
+  .hero-copy {
+    font-size: 1.65em;
+  }
+}
+
+// Each line of the hero title starts a new line; below 1000px the text flows naturally
+.hero-copy .hero-copy__line {
+  display: block;
+  color: #fff;
+}
+
+@media (max-width: 1000px) {
+  .hero-copy .hero-copy__line {
+    display: inline;
+  }
+}
+
+// Phone and small-window layout for the hero: padded edges, no empty space under the buttons
+@media (max-width: 1000px) {
+  .section--hero {
+    height: auto;
+    max-height: none;
+    padding: 24px 16px 32px;
+  }
+
+  .hero-buttons {
+    width: 100%;
+  }
+
+  .hero-button {
+    width: 100%;
+    max-width: 360px;
+    box-sizing: border-box;
+  }
+}
+
+// Larger video on smaller windows
+@media (max-width: 1000px) {
+  .hero-video {
+    width: min(85%, 800px);
+  }
+}
+
+// Top bar runs edge to edge: it cancels the hero's padding on small windows
+@media (max-width: 1000px) {
+  .top-bar {
+    width: calc(100% + 32px);
+    margin: -24px -16px 0;
+  }
+}
+
+// Learn section below 1200px: side padding, and features in rows of three then two
+@media (max-width: 1200px) {
+  .section--learn {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .learn {
+    &__items {
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    &__item {
+      flex: 0 0 calc((100% - 48px) / 3);
+      width: calc((100% - 48px) / 3);
+    }
+  }
+}
+
+// Learn section below 1200px: keep the carousel inside the padding, and tighten the feature grid
+@media (max-width: 1200px) {
+  .learn__top {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .learn__carousel {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .learn__items {
+    max-width: 760px;
+  }
+}
+
+// Learn section below 1000px: heading stacks above the carousel, both centered
+@media (max-width: 1000px) {
+  .learn__top {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .learn__header {
+    align-items: center;
+    text-align: center;
+  }
+
+  .learn__carousel {
+    margin: 0 auto;
+  }
+}
+
+// Learn section on phones and small tablets: contents fit the width, features in centered pairs
+.section--learn,
+.learn__top,
+.learn__header,
+.learn__items {
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .learn__header,
+  .learn__heading {
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .learn__heading {
+    font-size: 40px;
+  }
+
+  .learn__items {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .learn__item {
+    flex: 0 0 calc((100% - 24px) / 2);
+    width: calc((100% - 24px) / 2);
+    min-width: 0;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+// Speakers below 1000px: two cards side by side, shrinking to fit the window
+@media (max-width: 1000px) {
+  .section--speakers {
+    min-width: 0;
+  }
+
+  .speakers__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .speakers__card {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 10px 14px;
+  }
+
+  .speakers__name {
+    font-size: 20px;
+  }
+
+  .speakers__bio {
+    font-size: 14px;
+  }
+}
+
+// Speakers below 1000px: smaller grid, centered, with equal side padding
+@media (max-width: 1000px) {
+  .section--speakers {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .speakers__grid {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+}
+
+// Sections include their padding in their width, so padded sections never overflow the window
+.section {
+  box-sizing: border-box;
+}
+
+@media (max-width: 1000px) {
+  .speakers__grid {
+    max-width: min(640px, 100%);
+  }
+}
+
+// Ticket card below 1200px: scales down with the window, centered, with equal side padding
+@media (max-width: 1200px) {
+  .section--bg-countdown {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .ticket__card {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 32px 28px;
+    box-sizing: border-box;
+  }
+
+  .ticket__heading {
+    font-size: clamp(32px, 4vw, 48px);
+  }
+
+  // The image area keeps its proportions as the card narrows
+  .ticket__visual {
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+}
+
+// Attend button under the ticket box always stays on one line
+.ticket__cta {
+  white-space: nowrap;
+  width: auto;
+  max-width: none;
+}
+
+// Experience photos on small screens: two smaller photos per row
+@media (max-width: 768px) {
+  .experience__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+// Phones below 500px: smaller countdown and Attend button, fitted to the window
+@media (max-width: 500px) {
+  .section--bg-countdown {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .countdown {
+    gap: 6px;
+  }
+
+  .countdown__unit {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 8px 4px;
+  }
+
+  .countdown__value {
+    font-size: 1.6em;
+  }
+
+  .countdown__label {
+    font-size: 0.6em;
+    letter-spacing: 1px;
+  }
+
+  .ticket__cta {
+    gap: 8px;
+    padding: 16px 16px;
+    font-size: 15px;
+  }
+
+  .ticket__cta-icon {
+    flex-basis: 22px;
+    width: 22px;
+    height: 22px;
+  }
+}
