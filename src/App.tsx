@@ -2,15 +2,18 @@ import { Fragment, useEffect, useRef, useState, type CSSProperties, type FormEve
 import { copy } from './content/copy'
 import { reviews } from './content/reviews'
 
+// Prefixes public asset paths with the site's base path (set in vite.config.ts)
+const asset = (path: string) => `${import.meta.env.BASE_URL}${path.slice(1)}`
+
 const generalAdmissionSold = 92
 
 const experiencePhotos = [
-  { src: '/images/725d383a-9536-43c5-935d-846fe91f85bf.jpg', alt: 'Speaker in front of a 10X backdrop' },
-  { src: '/images/cbfacb26-b40e-4321-ba8e-e7b5526fcad2.jpg', alt: 'Speaker on stage in a large ballroom' },
-  { src: '/images/8e4702ed-98b0-46e0-9b8b-1162961451ce.jpg', alt: 'Attendees seated at long tables in a ballroom' },
-  { src: '/images/ee479cd7-b4df-4875-bc33-dfb7d5ba5974.jpg', alt: 'Round tables filled with attendees' },
-  { src: '/images/49a4ecf3-abf0-4bc1-a5d0-75a10fd6869d.jpg', alt: 'Attendees taking notes at the summit' },
-  { src: '/images/f33e972c-cdaa-4672-b997-5057b8d14824.jpg', alt: 'Audience in front of the 10X stage and screen' },
+  { src: asset('/images/725d383a-9536-43c5-935d-846fe91f85bf.jpg'), alt: 'Speaker in front of a 10X backdrop' },
+  { src: asset('/images/cbfacb26-b40e-4321-ba8e-e7b5526fcad2.jpg'), alt: 'Speaker on stage in a large ballroom' },
+  { src: asset('/images/8e4702ed-98b0-46e0-9b8b-1162961451ce.jpg'), alt: 'Attendees seated at long tables in a ballroom' },
+  { src: asset('/images/ee479cd7-b4df-4875-bc33-dfb7d5ba5974.jpg'), alt: 'Round tables filled with attendees' },
+  { src: asset('/images/49a4ecf3-abf0-4bc1-a5d0-75a10fd6869d.jpg'), alt: 'Attendees taking notes at the summit' },
+  { src: asset('/images/f33e972c-cdaa-4672-b997-5057b8d14824.jpg'), alt: 'Audience in front of the 10X stage and screen' },
 ]
 
 const shownReviews = reviews.filter((review) => review.rating >= 4)
@@ -23,33 +26,33 @@ const reviewCopies = shownReviews.length
 const reviewSlides = Array.from({ length: reviewCopies }, () => shownReviews).flat()
 
 const learnPhotos = [
-  { src: '/images/725d383a-9536-43c5-935d-846fe91f85bf.jpg', alt: 'Grant Cardone presenting on stage in front of a 10X backdrop' },
-  { src: '/images/79e8e670-3f60-4228-a26a-686b9fc6a2c6.jpg', alt: 'Wealth Creation Formula slide shown at the summit' },
-  { src: '/images/ff2d10a9-a29f-4bf7-8936-2a86b6b0d88e.jpg', alt: 'Wide view of the summit room with the 10X stage' },
+  { src: asset('/images/725d383a-9536-43c5-935d-846fe91f85bf.jpg'), alt: 'Grant Cardone presenting on stage in front of a 10X backdrop' },
+  { src: asset('/images/79e8e670-3f60-4228-a26a-686b9fc6a2c6.jpg'), alt: 'Wealth Creation Formula slide shown at the summit' },
+  { src: asset('/images/ff2d10a9-a29f-4bf7-8936-2a86b6b0d88e.jpg'), alt: 'Wide view of the summit room with the 10X stage' },
 ]
 
 // Same order as copy.speakers.items
 const speakerPhotos = [
-  '/images/429c5b0c-cd93-47e8-b728-853e2a8a5ec8.png',
-  '/images/dbf353e9-61b3-4d9f-af1b-79b8f651db0f.png',
-  '/images/68c442d79bf2896a971aafa1.png',
-  '/images/68c442d74190aa1f4f0f9bc5.png',
-  '/images/6ab13b56825a8484f2d5982d.jpg',
-  '/images/68c442d747af6606bfdd11dc.png',
+  asset('/images/429c5b0c-cd93-47e8-b728-853e2a8a5ec8.png'),
+  asset('/images/dbf353e9-61b3-4d9f-af1b-79b8f651db0f.png'),
+  asset('/images/68c442d79bf2896a971aafa1.png'),
+  asset('/images/68c442d74190aa1f4f0f9bc5.png'),
+  asset('/images/6ab13b56825a8484f2d5982d.jpg'),
+  asset('/images/68c442d747af6606bfdd11dc.png'),
 ]
 
 const ticketImages = {
-  workbook: '/images/workbook-mockup-v1-compressed.png',
-  pass: '/images/ticket-10x-lanyard-v3-compressed.png',
+  workbook: asset('/images/workbook-mockup-v1-compressed.png'),
+  pass: asset('/images/ticket-10x-lanyard-v3-compressed.png'),
 }
 
 // Same order as copy.learn.items
 const learnIcons = [
-  '/images/Screenshot-2024-01-26-at-5.32.22-PM.png',
-  '/images/Screenshot-2024-01-26-at-1.55.00-PM.png',
-  '/images/Screenshot-2024-01-26-at-1.54.56-PM.png',
-  '/images/Screenshot-2024-01-26-at-1.55.03-PM.png',
-  '/images/Screenshot-2024-01-26-at-1.55.11-PM.png',
+  asset('/images/Screenshot-2024-01-26-at-5.32.22-PM.png'),
+  asset('/images/Screenshot-2024-01-26-at-1.55.00-PM.png'),
+  asset('/images/Screenshot-2024-01-26-at-1.54.56-PM.png'),
+  asset('/images/Screenshot-2024-01-26-at-1.55.03-PM.png'),
+  asset('/images/Screenshot-2024-01-26-at-1.55.11-PM.png'),
 ]
 
 // January 22, 2027 at 4:00 PM Eastern (EST, UTC-5)
@@ -121,7 +124,7 @@ function HeroVideo() {
       <video
         ref={videoRef}
         className="hero-video__media"
-        src="/videos/business-summit-lander.mp4"
+        src={asset('/videos/business-summit-lander.mp4')}
         autoPlay
         muted
         loop
@@ -130,7 +133,7 @@ function HeroVideo() {
       >
         <track
           kind="captions"
-          src="/videos/business-summit-lander.en.vtt"
+          src={asset('/videos/business-summit-lander.en.vtt')}
           srcLang="en"
           label="English"
         />
